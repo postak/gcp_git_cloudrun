@@ -4,10 +4,8 @@ env:
   SERVICE: my-cloud-run
   REGION: us-central1
 
-on:
-  push:
-    branches:
-      - example-build-deploy
+on: [push, pull_request]
+
 
 jobs:
   deploy:
