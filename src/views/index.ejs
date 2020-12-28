@@ -1,0 +1,112 @@
+<!DOCTYPE html>  
+<html>
+  <head>
+    <title>Calcolo Codice Fiscale</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+     <link href="./stylesheets/app.css" rel="stylesheet"></link>
+  </head>
+  <body ng-app="myApp" class="ng-cloak">
+      <div class="generic-container" ng-controller="CodiceFiscaleController as ctrl">
+          <div class="panel panel-default">
+              <div class="panel-heading"><span class="lead">Calcolo del Codice Fiscale</span></div>
+
+              <div class="formcontainer">
+                  <form ng-submit="ctrl.submit()" name="myForm"
+                  class="form-horizontal">
+                      <input type="hidden" ng-model="ctrl.user.id" />
+
+
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="file">Nome</label>
+                              <div class="col-md-7">
+                                  <input type="text" ng-model="ctrl.user.nome" name="nome" class="form-control input-sm" placeholder="Inserire il nome" required ng-minlength="3"/>
+                                  <div class="has-error" ng-show="myForm.$dirty">
+                                      <span ng-show="myForm.nome.$error.required">Campo obbligatorio</span>
+                                      <span ng-show="myForm.nome.$error.minlength">Lunghezza minima 3 caratteri</span>
+                                      <span ng-show="myForm.nome.$invalid">Campo invalido </span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="file">Cognome</label>
+                              <div class="col-md-7">
+                                  <input type="text" name="cognome" ng-model="ctrl.user.cognome" class="form-control input-sm" required placeholder="Inserire il cognome."/>
+                                  <div class="has-error" ng-show="myForm.$dirty">
+                                      <span ng-show="myForm.cognome.$error.required">Campo obbligatorio</span>
+                                      <span ng-show="myForm.cognome.$error.minlength">Lunghezza minima 3 caratteri</span>
+                                      <span ng-show="myForm.cognome.$invalid">Campo invalido </span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="file">Data di Nascita</label>
+                              <div class="col-md-7">
+                                  <input type="text" id="datepicker" ng-model="ctrl.user.data_di_nascita" name="data_di_nascita" class="form-control input-sm" required placeholder="Inserire la data di nascita." />
+                                  <div class="has-error" ng-show="myForm.$dirty">
+                                      <span ng-show="myForm.data_di_nascita.$error.required">Campo obbligatorio</span>
+                                      <span ng-show="myForm.data_di_nascita.$invalid">Campo invalido</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="file">Sesso</label>
+                              <div class="col-md-7">
+                                  <select ng-model="ctrl.user.sesso" class="form-control input-sm" >
+                                      <option value="M">Maschio
+                                      <option value="F">Femmina
+                                  </select>
+                              </div>
+                          </div>
+                      </div>
+
+
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="file">Comune di Nascita</label>
+                              <div class="col-md-7">
+                                  <input type="text" ng-model="ctrl.user.comune_nascita" name="comune_nascita" class="form-control input-sm" placeholder="Inserisci il comune di nascota." ng-keypress="keychanged($event)"  list="comuniList"/>
+
+                                  <datalist id="comuniList">
+                                    <option  data-ng-repeat="ccc in comuni" value="{{ccc}}" >
+                                  </datalist>
+
+                                  <div class="has-error" ng-show="myForm.$dirty">
+                                      <span ng-show="myForm.comune_nascita.$error.required">Campo obbligatorio</span>
+                                      <span ng-show="myForm.comune_nascita.$invalid">Campo invalido</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="form-actions floatRight">
+                              <input type="submit"  value="Calcola" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid">
+                              <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Reset Form</button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading"><span class="lead">Codice Fiscale: <span id="score_result" style="color:red">{{ctrl.user.codice_fiscale}}</span></span></div>
+          </div>
+      </div>
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.js"></script>
+      <script src="./js/angular_app.js"></script>
+      <script src="./js/service/customer_service.js"></script>
+      <script src="./js/controller/customer_controller.js"></script>
+</html>
