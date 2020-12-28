@@ -1,14 +1,13 @@
-
-on:
-  push:
-    branches:
-      - example-build-deploy
-
 name: Build and Deploy a Container
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT }}
   SERVICE: my-cloud-run
   REGION: us-central1
+
+on:
+  push:
+    branches:
+      - example-build-deploy
 
 jobs:
   deploy:
